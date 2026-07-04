@@ -5,7 +5,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Replay',
-  description: 'A walk back through our first date.',
+  description: "A wander through the memories in Lucas's brain.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

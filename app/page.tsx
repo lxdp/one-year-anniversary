@@ -1,6 +1,5 @@
-import { SceneEngine } from '@/components/scene-engine/scene-engine';
-import { scenes } from '@/data/scenes';
+import { BrainExperience } from '@/components/brain-experience';
 
 export default function HomePage() {
-  return <SceneEngine scenes={scenes} />;
+  return <BrainExperience />;
 }

@@ -1,7 +1,7 @@
 # PROJECT_SPEC.md
 
 # Project Specification
-Version: 2.0
+Version: 3.0
 
 ---
 
@@ -9,17 +9,17 @@ Version: 2.0
 
 Replay
 
-(A photo memory experience — an interactive journey through our relationship.)
+(An explorable brain — a neural network of memories of us.)
 
 ---
 
 # Vision
 
-Create an interactive web experience where my girlfriend can move through a curated sequence of real photos from our relationship, each one revealing a personal thought or feeling from that moment.
+Create an interactive web experience where my girlfriend can explore my brain — a network of glowing nodes, each one a memory of us.
 
-This is not a gallery or a slideshow.
+This is not a gallery, a slideshow, or a presentation.
 
-It should feel like stepping through memories — intimate, cinematic, and handcrafted — even though the only "art" is the photos themselves.
+It should feel like being let inside my head: opening a node shows a real photo of us together with what I was thinking and feeling in that moment.
 
 The emphasis is on emotional storytelling, atmosphere, and polish rather than features or complexity.
 
@@ -27,13 +27,15 @@ The emphasis is on emotional storytelling, atmosphere, and polish rather than fe
 
 # Core Experience
 
-The user moves through a sequence of photos, one at a time.
+A welcome screen greets her: **"Welcome to Lucas's brain"**, with a prompt to click to get started.
 
-Each photo fills the screen.
+Clicking in reveals a neural-network interface — soft glowing nodes joined by faint synapses, starting from a single lit node.
 
-Hovering over the photo (desktop) or tapping it (mobile) reveals a personal thought or feeling from that moment.
+Clicking a node opens that memory: the photo, plus my thoughts and feelings about it.
 
-Clicking or tapping progresses to the next memory.
+Viewing a memory lights up its connected nodes — the brain progressively wakes up as she explores.
+
+When every node is lit, the brain is fully awake. A quiet completion moment, nothing loud.
 
 The experience should feel calm, intimate, and cinematic.
 
@@ -41,17 +43,15 @@ The experience should feel calm, intimate, and cinematic.
 
 # Content Structure
 
-All content lives in a single TypeScript data file: `data/memories.ts`
+All content lives in a single TypeScript data file: `data/brain.ts`
 
-Each memory contains:
+Each node contains:
 
-- A photo (loaded from `public/photos/`)
-- A personal thought revealed on hover or tap
-- An optional date label
-- An optional location label
-- An alt description for accessibility
+- A position on the brain canvas (percentages)
+- Connections — which nodes it reveals once viewed
+- A memory: photo (from `public/photos/`), a personal thought/feeling, optional date and location labels, and an alt description for accessibility
 
-There is no fixed number of memories. Add or remove by editing the data file only — no code changes needed.
+There is no fixed number of memories. The graph — not code — shapes how the story unfolds. Add, remove, or rewire by editing the data file only.
 
 ---
 
@@ -67,9 +67,9 @@ The project should prioritise:
 - accessibility
 - mobile and desktop parity
 
-The interface should disappear into the photos.
+The interface should disappear into the experience.
 
-Avoid anything that feels like a website. It should feel like a memory.
+Avoid anything that feels like a website. It should feel like a mind.
 
 ---
 
@@ -77,19 +77,21 @@ Avoid anything that feels like a website. It should feel like a memory.
 
 Primary interactions:
 
-- hover to reveal thought (desktop)
-- tap to reveal thought (mobile)
-- click or tap to progress to next memory
-- optional: keyboard arrow navigation
+- click to enter the brain
+- click or tap a lit node to open its memory
+- close a memory to return to the network
+- keyboard access for everything clickable
 - optional: ambient audio
 
-Keep interactions minimal. One photo, one thought, one moment.
+Keep interactions minimal. One node, one memory, one moment.
 
 ---
 
 # Visual Style
 
 Desired feeling:
+
+alive but calm
 
 warm
 
@@ -101,11 +103,11 @@ soft
 
 memory-like
 
+The brain glows softly against darkness. Nodes pulse gently; synapses stay faint.
+
 Animations should be slow and intentional.
 
-Whitespace is encouraged.
-
-Typography carries the emotional weight.
+Typography carries the emotional weight inside each memory.
 
 ---
 
@@ -113,7 +115,7 @@ Typography carries the emotional weight.
 
 Primary stack:
 
-Next.js (App Router)
+Next.js (App Router, static export)
 
 React
 
@@ -131,7 +133,7 @@ Potential additions:
 
 Howler.js (optional ambient audio)
 
-No game engine. No backend. No database.
+No game engine. No graph library unless hand-rolled SVG proves insufficient. No backend. No database.
 
 ---
 
@@ -139,13 +141,13 @@ No game engine. No backend. No database.
 
 Everything is component-driven.
 
-Content is data-driven — all memories live in one TypeScript file.
+Content is data-driven — the entire graph lives in one TypeScript file.
 
-The photo card component is the single reusable primitive.
+`NodeButton` is the single node primitive; `MemoryPopup` is the single memory primitive — no per-node or per-memory components.
+
+Pure graph logic lives in `utils/brain-graph.ts`; exploration state in `hooks/use-brain-exploration.ts`.
 
 Transitions are reusable and stateless.
-
-One component handles all photos — no per-photo components.
 
 Avoid duplicated logic.
 
@@ -154,8 +156,9 @@ Avoid duplicated logic.
 # Content Pipeline
 
 1. Add photo to `public/photos/`
-2. Add one object to `data/memories.ts`
-3. Done — no code changes needed.
+2. Add one node object to `data/brain.ts`
+3. Reference its id from another node's `connections` so it can be reached
+4. Done — no code changes needed.
 
 ---
 
@@ -169,9 +172,11 @@ fade
 
 scale
 
-slow cross-dissolve between photos
+slow cross-dissolve
 
-subtle parallax (optional)
+soft glow and gentle pulse on nodes
+
+slow draw-in of new synapses
 
 The animation supports the emotion — it never distracts from it.
 
@@ -221,7 +226,7 @@ Functions should have one responsibility.
 
 # Testing Expectations
 
-Unit tests for reusable logic.
+Unit tests for reusable logic — the graph utils especially.
 
 Component tests where interactions are non-trivial.
 
@@ -233,7 +238,7 @@ Focus testing on behaviour rather than implementation details.
 
 Fast initial load.
 
-Lazy load photos not yet visible.
+Lazy load photos — only the open memory needs its image.
 
 Optimise images using next/image.
 
@@ -245,6 +250,6 @@ Prefer CSS animations over JavaScript where possible.
 
 # Success Criteria
 
-When finished, the experience should feel like holding a photo album that talks back.
+When finished, it should feel like wandering through someone's head and finding yourself everywhere in it.
 
 She should finish it remembering the feelings, not the technology.

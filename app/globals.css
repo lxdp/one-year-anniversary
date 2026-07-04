@@ -4,24 +4,23 @@
   --font-serif: 'Georgia', 'Times New Roman', serif;
 }
 
-/* Slow, gentle pulse for hotspots — CSS-driven per the animation
-   philosophy: prefer CSS over JS for continuous ambient motion. */
-@keyframes hotspot-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+/* Slow entrance for revealed thoughts — CSS-driven per the animation
+   philosophy: prefer CSS over JS for simple one-shot fades. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
-  50% {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+  to {
+    opacity: 1;
   }
 }
 
-.hotspot-pulse {
-  animation: hotspot-pulse 3.5s ease-in-out infinite;
+.fade-in-slow {
+  animation: fade-in 1.2s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hotspot-pulse {
+  .fade-in-slow {
     animation: none;
   }
 }

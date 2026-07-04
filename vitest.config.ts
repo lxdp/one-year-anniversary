@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
+    // Required for Testing Library's automatic DOM cleanup between tests.
+    globals: true,
     include: ['**/*.test.{ts,tsx}'],
     exclude: ['node_modules', '.next', 'out'],
   },

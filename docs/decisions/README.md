@@ -30,6 +30,7 @@ Do NOT write an ADR for:
 
 | # | Title | Status |
 |---|---|---|
-| — | No ADRs yet | — |
+| [0001](0001-pivot-to-photo-memory-experience.md) | Pivot from illustrated scenes to a photo memory experience | superseded-by: 0002 |
+| [0002](0002-pivot-to-explorable-brain.md) | Pivot from linear photo sequence to an explorable brain | accepted |
 
 Update this table when you add a new ADR.
