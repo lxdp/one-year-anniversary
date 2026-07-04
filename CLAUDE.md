@@ -6,7 +6,7 @@
 
 ## Project Purpose
 
-**Replay** is an explorable brain — a personal gift. A welcome screen ("Welcome to Lucas's brain") leads into a neural-network interface of glowing nodes. Clicking a node opens a real photo of the couple with Lucas's thoughts and feelings about that moment; viewing a memory lights up its connected nodes, so the brain progressively wakes up as she explores. It is not a gallery or slideshow. It should feel intimate, cinematic, and handcrafted. Emotional impact and polish take priority over feature scope or technical novelty.
+**Replay** is an explorable brain — a personal gift. A welcome screen ("Welcome to Lucas's brain") leads into a neural-network interface of glowing nodes. Clicking a node opens a real photo of the couple with Lucas's thoughts and feelings about that moment; viewing a memory lights up its connected nodes, so the brain progressively wakes up as she explores. It is not a gallery or slideshow. It should feel romantic, sweet, and handcrafted — a love letter, not a film. Emotional impact and polish take priority over feature scope or technical novelty.
 
 ---
 
@@ -106,11 +106,12 @@ Standards: `@docs/standards/coding-standards.md`
 
 ## Visual & Animation Philosophy
 
-The interface should disappear into the experience. Animations are slow, intentional, and narrative-supporting — never distracting. The brain should feel alive but calm: soft glows, gentle pulses, faint synapses.
+The experience is romantic, sweet, and playful — warm pinks, soft shapes, a brain that feels alive and affectionate. Cute over cinematic. Animations support the feeling — never distract from the content.
 
-- Prefer: fade, scale, slow cross-dissolve, soft glow/pulse on nodes.
-- Avoid: rapid movement, bounce effects, gratuitous transitions.
+- Prefer: warm pink palettes, soft glows, gentle pulses, floating hearts, playful character motion (the running brain), slow cross-dissolves between phases.
+- Avoid: cold dark "tech" aesthetics, harsh or chaotic movement, gratuitous transitions.
 - Whitespace is intentional. Do not fill it.
+- All continuous motion is CSS-driven and disabled under `prefers-reduced-motion`.
 
 ---
 

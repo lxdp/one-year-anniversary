@@ -12,7 +12,8 @@ Replay is a **client-side explorable brain** built on Next.js. There is no backe
 User Browser
   └── Next.js App (Static Export)
         ├── BrainExperience     ← phase shell: welcome → exploring
-        │     ├── WelcomeScreen ← "Welcome to Lucas's brain", click to enter
+        │     ├── WelcomeScreen ← catch the running brain to get in
+        │     │     └── RunningBrain ← the cartoon brain character
         │     └── BrainView     ← the neural network canvas
         │           ├── ConnectionLayer ← SVG synapses between revealed nodes
         │           ├── NodeButton      ← one glowing neuron per memory
@@ -30,7 +31,7 @@ User Browser
 | **Pages** | Route entry points only | `app/page.tsx` |
 | **Experience** | Phase state (welcome ↔ exploring) | `components/brain-experience.tsx` |
 | **Brain** | Network rendering, popup orchestration | `components/brain-view.tsx` |
-| **Primitives** | Reusable UI building blocks | `components/node-button.tsx`, `components/connection-layer.tsx`, `components/memory-popup.tsx`, `components/welcome-screen.tsx`, `components/transition.tsx` |
+| **Primitives** | Reusable UI building blocks | `components/node-button.tsx`, `components/connection-layer.tsx`, `components/memory-popup.tsx`, `components/welcome-screen.tsx`, `components/running-brain.tsx`, `components/transition.tsx` |
 | **Hooks** | Exploration state | `hooks/use-brain-exploration.ts` |
 | **Utils** | Pure graph logic | `utils/brain-graph.ts` |
 | **Data** | The entire brain | `data/brain.ts` |
@@ -73,7 +74,9 @@ all nodes visited                    ← isComplete (the brain is awake)
 
 ```
 BrainExperience
-  ├── phase: 'welcome' → WelcomeScreen (onEnter advances phase)
+  ├── phase: 'welcome' → WelcomeScreen
+  │     └── RunningBrain (catching it plays a heart burst,
+  │         then onEnter advances the phase)
   └── phase: 'exploring' → BrainView
         ├── useBrainExploration(memoryNodes, ENTRY_NODE_ID)
         ├── ConnectionLayer (lines between revealed nodes, beneath)

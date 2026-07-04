@@ -27,9 +27,9 @@ The emphasis is on emotional storytelling, atmosphere, and polish rather than fe
 
 # Core Experience
 
-A welcome screen greets her: **"Welcome to Lucas's brain"**, with a prompt to click to get started.
+A welcome screen greets her: **"Welcome to Lucas's Brain"** — a cheerful cartoon brain sprints across the screen, and she has to catch it (click it) to get in. Catching it sets off a little burst of hearts.
 
-Clicking in reveals a neural-network interface — soft glowing nodes joined by faint synapses, starting from a single lit node.
+Inside is a neural-network interface — soft glowing nodes joined by faint synapses, starting from a single lit node.
 
 Clicking a node opens that memory: the photo, plus my thoughts and feelings about it.
 
@@ -37,7 +37,7 @@ Viewing a memory lights up its connected nodes — the brain progressively wakes
 
 When every node is lit, the brain is fully awake. A quiet completion moment, nothing loud.
 
-The experience should feel calm, intimate, and cinematic.
+The experience should feel romantic, sweet, and playful.
 
 ---
 
@@ -91,21 +91,21 @@ Keep interactions minimal. One node, one memory, one moment.
 
 Desired feeling:
 
-alive but calm
+romantic
+
+sweet
 
 warm
 
-intimate
-
-cinematic
+playful
 
 soft
 
 memory-like
 
-The brain glows softly against darkness. Nodes pulse gently; synapses stay faint.
+Soft pinks and warm light everywhere. The brain is a character — cute, affectionate, alive.
 
-Animations should be slow and intentional.
+Playful motion is welcome as long as it stays sweet, not chaotic.
 
 Typography carries the emotional weight inside each memory.
 
@@ -164,7 +164,7 @@ Avoid duplicated logic.
 
 # Animation Philosophy
 
-Animations should feel natural and unhurried.
+Animations should feel natural and full of heart.
 
 Prioritise:
 
@@ -177,6 +177,8 @@ slow cross-dissolve
 soft glow and gentle pulse on nodes
 
 slow draw-in of new synapses
+
+playful character motion (the running brain, heart bursts)
 
 The animation supports the emotion — it never distracts from it.
 
