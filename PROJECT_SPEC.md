@@ -1,7 +1,7 @@
 # PROJECT_SPEC.md
 
 # Project Specification
-Version: 1.0
+Version: 2.0
 
 ---
 
@@ -9,52 +9,49 @@ Version: 1.0
 
 Replay
 
-(Working title. A digital recreation of our first date.)
+(A photo memory experience — an interactive journey through our relationship.)
 
 ---
 
 # Vision
 
-Create an interactive web experience that allows my girlfriend to relive our first date through a sequence of handcrafted interactive scenes.
+Create an interactive web experience where my girlfriend can move through a curated sequence of real photos from our relationship, each one revealing a personal thought or feeling from that moment.
 
-This is **not** intended to be a traditional game.
+This is not a gallery or a slideshow.
 
-The experience should feel like stepping through a collection of memories.
+It should feel like stepping through memories — intimate, cinematic, and handcrafted — even though the only "art" is the photos themselves.
 
-The emphasis is on emotional storytelling, atmosphere and polish rather than gameplay mechanics.
-
-The project should be maintainable, modular and enjoyable to continue improving after the initial release.
+The emphasis is on emotional storytelling, atmosphere, and polish rather than features or complexity.
 
 ---
 
 # Core Experience
 
-The user progresses through a sequence of scenes representing different locations from our first date.
+The user moves through a sequence of photos, one at a time.
 
-Each scene contains a beautiful illustration or background together with a handful of interactive hotspots.
+Each photo fills the screen.
 
-Hovering over a hotspot reveals thoughts, memories or emotions from that moment.
+Hovering over the photo (desktop) or tapping it (mobile) reveals a personal thought or feeling from that moment.
 
-Clicking progresses naturally to the next memory.
+Clicking or tapping progresses to the next memory.
 
-The experience should feel calm, reflective and cinematic.
+The experience should feel calm, intimate, and cinematic.
 
 ---
 
-# Story Structure
+# Content Structure
 
-Current planned scenes:
+All content lives in a single TypeScript data file: `data/memories.ts`
 
-1. Ice Skating
-2. Nando's
-3. First Viewpoint (The Mount)
-4. My House (Monster Energy stop)
-5. Sunset Viewpoint
-6. Stargazing at The Mount
-7. Driving Her Home
-8. Ending Screen
+Each memory contains:
 
-This order should remain linear.
+- A photo (loaded from `public/photos/`)
+- A personal thought revealed on hover or tap
+- An optional date label
+- An optional location label
+- An alt description for accessibility
+
+There is no fixed number of memories. Add or remove by editing the data file only — no code changes needed.
 
 ---
 
@@ -63,15 +60,16 @@ This order should remain linear.
 The project should prioritise:
 
 - emotional impact
-- smooth animations
-- elegant UI
+- smooth, slow animations
+- elegant typography
 - clean code
-- modular architecture
-- maintainability
+- simplicity over complexity
 - accessibility
-- simplicity over unnecessary complexity
+- mobile and desktop parity
 
-Avoid adding mechanics that distract from the story.
+The interface should disappear into the photos.
+
+Avoid anything that feels like a website. It should feel like a memory.
 
 ---
 
@@ -79,15 +77,13 @@ Avoid adding mechanics that distract from the story.
 
 Primary interactions:
 
-- hover hotspots
-- click navigation
-- subtle animations
-- scroll where appropriate
-- optional ambient audio
+- hover to reveal thought (desktop)
+- tap to reveal thought (mobile)
+- click or tap to progress to next memory
+- optional: keyboard arrow navigation
+- optional: ambient audio
 
-The experience should never overwhelm the user with interaction.
-
-Each scene should contain only a few meaningful interactive elements.
+Keep interactions minimal. One photo, one thought, one moment.
 
 ---
 
@@ -97,29 +93,27 @@ Desired feeling:
 
 warm
 
-minimal
+intimate
 
 cinematic
 
 soft
 
-cozy
-
 memory-like
-
-The interface should disappear into the experience.
 
 Animations should be slow and intentional.
 
 Whitespace is encouraged.
 
+Typography carries the emotional weight.
+
 ---
 
-# Technical Goals
+# Technical Stack
 
 Primary stack:
 
-Next.js
+Next.js (App Router)
 
 React
 
@@ -135,74 +129,39 @@ Vercel
 
 Potential additions:
 
-Howler.js (audio)
+Howler.js (optional ambient audio)
 
-GSAP (only if needed)
-
-No game engine unless absolutely necessary.
+No game engine. No backend. No database.
 
 ---
 
 # Architecture Goals
 
-The project should favour composition over inheritance.
+Everything is component-driven.
 
-Everything should be component driven.
+Content is data-driven — all memories live in one TypeScript file.
 
-Scenes should be reusable.
+The photo card component is the single reusable primitive.
 
-Interactive hotspots should be reusable.
+Transitions are reusable and stateless.
 
-Transitions should be reusable.
-
-Animations should be reusable.
+One component handles all photos — no per-photo components.
 
 Avoid duplicated logic.
 
 ---
 
-# Scene System
+# Content Pipeline
 
-Every scene should follow the same structure.
-
-Scene
-
-- background
-- title
-- atmosphere
-- hotspots
-- dialogue/thoughts
-- transition
-
-Each scene should be configurable through data whenever possible.
-
----
-
-# Hotspot System
-
-Hotspots should support:
-
-position
-
-hover state
-
-animation
-
-tooltip
-
-optional click action
-
-optional unlock conditions (future)
-
-The implementation should be generic enough that every scene can reuse it.
+1. Add photo to `public/photos/`
+2. Add one object to `data/memories.ts`
+3. Done — no code changes needed.
 
 ---
 
 # Animation Philosophy
 
-Animations should feel natural.
-
-Avoid excessive movement.
+Animations should feel natural and unhurried.
 
 Prioritise:
 
@@ -210,55 +169,19 @@ fade
 
 scale
 
-slow transitions
+slow cross-dissolve between photos
 
-parallax (optional)
+subtle parallax (optional)
 
-floating particles (optional)
-
-The animation should support the narrative instead of distracting from it.
+The animation supports the emotion — it never distracts from it.
 
 ---
 
 # Audio Philosophy
 
-Audio should be optional.
+Audio is optional.
 
-Possible ambience:
-
-ice rink
-
-restaurant ambience
-
-wind
-
-birds
-
-night ambience
-
-Music should never autoplay without user interaction.
-
----
-
-# Scalability
-
-The project should support future additions such as:
-
-new memories
-
-multiple stories
-
-save progress
-
-mobile optimisation
-
-accessibility improvements
-
-voice narration
-
-alternative endings
-
-The architecture should make future expansion straightforward.
+Music must never autoplay without user interaction.
 
 ---
 
@@ -266,29 +189,17 @@ The architecture should make future expansion straightforward.
 
 Do not build:
 
-inventory systems
-
-combat
-
-physics
-
-pathfinding
-
-NPC AI
-
-character movement
-
-complex game mechanics
-
 backend infrastructure
 
 user authentication
 
-multiplayer
-
 database
 
-This project is intentionally lightweight.
+complex game mechanics
+
+inventory or scoring systems
+
+This project is intentionally lightweight and personal.
 
 ---
 
@@ -304,7 +215,7 @@ Consistent naming.
 
 Minimal side effects.
 
-Functions should generally have one responsibility.
+Functions should have one responsibility.
 
 ---
 
@@ -312,9 +223,7 @@ Functions should generally have one responsibility.
 
 Unit tests for reusable logic.
 
-Component tests where valuable.
-
-Critical interactions should be tested.
+Component tests where interactions are non-trivial.
 
 Focus testing on behaviour rather than implementation details.
 
@@ -324,68 +233,18 @@ Focus testing on behaviour rather than implementation details.
 
 Fast initial load.
 
-Lazy load assets where appropriate.
+Lazy load photos not yet visible.
 
-Optimise images.
+Optimise images using next/image.
 
-Avoid unnecessary rerenders.
+Avoid unnecessary re-renders.
 
-Prefer CSS animations over JavaScript when possible.
-
----
-
-# Documentation Philosophy
-
-Every reusable system should be documented.
-
-Architecture decisions should be recorded using ADRs.
-
-Documentation should explain *why* rather than restating the code.
-
----
-
-# Git Workflow
-
-Feature branches.
-
-Small commits.
-
-Meaningful commit messages.
-
-Pull requests should explain why changes were made.
-
----
-
-# Claude Expectations
-
-Claude should:
-
-Think before implementing.
-
-Prefer existing abstractions.
-
-Avoid duplicate code.
-
-Keep components focused.
-
-Update documentation whenever architecture changes.
-
-Recommend better architecture when appropriate.
-
-Ask questions whenever requirements are ambiguous.
-
-Never introduce unnecessary complexity.
-
-Never invent requirements.
-
-Never silently change project architecture.
-
-Never add libraries without explaining why.
+Prefer CSS animations over JavaScript where possible.
 
 ---
 
 # Success Criteria
 
-When finished, the experience should feel like an interactive story rather than a website.
+When finished, the experience should feel like holding a photo album that talks back.
 
-The user should finish the experience remembering the emotions of the date rather than noticing the technology behind it.
+She should finish it remembering the feelings, not the technology.

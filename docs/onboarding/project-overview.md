@@ -6,24 +6,15 @@
 
 ## What is Replay?
 
-Replay is a **personal interactive web experience** — a digital recreation of a first date, built as a gift. The user (the developer's girlfriend) progresses through 8 cinematic scenes representing locations from that date. Each scene has interactive hotspots that reveal memories and emotions on hover.
+Replay is a **personal interactive web experience** — a gift built for the developer's girlfriend. She moves through a sequence of real photos from their relationship, one at a time. Each photo fills the screen. Hovering (desktop) or tapping (mobile) reveals a personal thought or feeling from that moment. Clicking progresses to the next memory.
 
-This is not a game. There are no mechanics, no scoring, no backend. It is emotional storytelling delivered through clean web technology.
+This is not a gallery. It is not a slideshow. It is emotional storytelling through photos and words.
 
 ---
 
-## The 8 Scenes (in order)
+## What makes it work
 
-1. Ice Skating
-2. Nando's
-3. First Viewpoint (The Mount)
-4. My House (Monster Energy stop)
-5. Sunset Viewpoint
-6. Stargazing at The Mount
-7. Driving Her Home
-8. Ending Screen
-
-Navigation is strictly linear — no branching.
+There is one TypeScript data file — `data/memories.ts` — that contains every photo path and every personal thought. One reusable component — `PhotoCard` — renders all of them. Adding a new memory means dropping a photo in `public/photos/` and adding one object to the data file. No code changes needed.
 
 ---
 
@@ -31,48 +22,57 @@ Navigation is strictly linear — no branching.
 
 | Tool | Why |
 |---|---|
-| Next.js | Routing, SSG, image optimisation |
-| TypeScript | Type safety throughout |
-| TailwindCSS | Utility-first styling, no CSS files to manage |
-| Framer Motion | Declarative, high-quality animations |
-| Vercel | Zero-config deployment, fast CDN |
+| Next.js | Routing, SSG, image optimisation via `next/image` |
+| TypeScript | Strong typing throughout |
+| TailwindCSS | Utility-first styling |
+| Framer Motion | Slow, cinematic animations and transitions |
+| Vercel | Zero-config deployment |
 
 ---
 
 ## Project Values (in priority order)
 
-1. **Emotional impact** — the experience should feel personal, warm, and cinematic
-2. **Polish** — animations are slow, intentional, and never distracting
-3. **Clean code** — readable, composable, well-typed
-4. **Simplicity** — no unnecessary complexity, no backend, no over-engineering
-
----
-
-## Key Architectural Facts
-
-- All scene content is **data-driven** — scene config files, not hardcoded JSX.
-- All interactive elements are **reusable primitives** — hotspots, transitions, and animations are shared components.
-- There is a **strict dependency direction**: Pages → Engine → Scenes → Primitives → Hooks → Utils.
-- Scenes must NOT import each other.
-
-Full architecture: `docs/architecture/overview.md`
+1. **Emotional impact** — the experience should feel personal, warm, and intimate
+2. **Polish** — animations are slow, intentional, never distracting
+3. **Simplicity** — one data file, one card component, no unnecessary complexity
+4. **Clean code** — readable, composable, well-typed
 
 ---
 
 ## Where Things Live
 
 ```
-app/                    Next.js pages/routes
+app/                        Next.js entry point
 components/
-  scene-engine/         Controls which scene is active
-  scenes/               One directory per scene
-  primitives/           Shared: Hotspot, SceneBackground, Transition, etc.
-hooks/                  Custom hooks (useSceneTransition, useHotspot, etc.)
-utils/                  Pure functions
-data/scenes/            Config for each scene (hotspot positions, text, etc.)
-types/                  Shared TypeScript interfaces
-public/                 Static assets (backgrounds, audio)
-docs/                   This documentation
+  memory-journey.tsx        Manages sequence and navigation
+  photo-card.tsx            Single reusable photo + thought component
+  thought-bubble.tsx        Text revealed on hover/tap
+  transition.tsx            Between-photo animation
+hooks/                      Custom hooks
+utils/                      Pure functions
+data/
+  memories.ts               ALL content lives here — photos + thoughts
+types/
+  index.ts                  Shared TypeScript interfaces
+public/
+  photos/                   All photo assets go here
+  audio/                    Optional ambient audio
+docs/                       This documentation
+```
+
+---
+
+## The Memory Type
+
+```ts
+interface Memory {
+  id: string
+  src: string          // path to photo in public/photos/
+  thought: string      // revealed on hover or tap
+  alt: string          // accessibility description
+  date?: string        // optional — e.g. 'March 2025'
+  location?: string    // optional — e.g. 'The Mount'
+}
 ```
 
 ---
@@ -80,12 +80,13 @@ docs/                   This documentation
 ## Where to Start
 
 If you are Claude starting a new session:
-1. Read `CLAUDE.md` — your constraints and conventions.
+1. Read `CLAUDE.md` — constraints and conventions.
 2. Read this file — you just did.
-3. Read `docs/architecture/overview.md` — before touching any component files.
-4. Only load other docs when you need them for a specific task.
+3. Read `docs/architecture/overview.md` before touching any component files.
+4. Only load other docs when needed for a specific task.
 
 If you are a human starting development:
 1. `npm install`
 2. `npm run dev`
 3. Open `http://localhost:3000`
+4. Add photos to `public/photos/` and entries to `data/memories.ts`

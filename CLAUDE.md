@@ -6,7 +6,7 @@
 
 ## Project Purpose
 
-**Replay** is an interactive web experience that lets the developer's girlfriend relive their first date through a sequence of handcrafted, cinematic scenes. It is a personal gift — emotional impact, atmosphere, and polish take priority over feature scope or technical novelty.
+**Replay** is an interactive photo memory experience — a personal gift that lets the developer's girlfriend move through a curated sequence of real photos from their relationship, each one revealing a personal thought or feeling from that moment. It is not a gallery or slideshow. It should feel intimate, cinematic, and handcrafted. Emotional impact and polish take priority over feature scope or technical novelty.
 
 ---
 
@@ -28,12 +28,22 @@ Do not introduce new libraries without explaining why and getting approval first
 ## Architecture Principles
 
 - Component-driven. Everything is a composable React component.
-- Data-driven scenes. Scene content lives in config/data files, not JSX.
-- Shared systems: scenes, hotspots, transitions, and animations are all reusable primitives.
-- Composition over inheritance. Favour small, focused components composed together.
-- No backend. No database. No auth. This is intentionally a static experience.
+- Data-driven content. All memories live in `data/memories.ts` — not in JSX.
+- One reusable `PhotoCard` component handles every photo. No per-photo components.
+- Transitions are stateless — they receive `isEntering` / `isExiting` and animate accordingly.
+- No backend. No database. No auth. This is a static personal experience.
 
-Full architecture: `docs/architecture/overview.md`
+Full architecture: `@docs/architecture/overview.md`
+
+---
+
+## Content Pipeline
+
+Adding a new memory requires exactly two steps:
+1. Drop the photo into `public/photos/`
+2. Add one object to `data/memories.ts`
+
+No code changes needed beyond the data file.
 
 ---
 
@@ -46,7 +56,7 @@ Full architecture: `docs/architecture/overview.md`
 - Prefer CSS animations over JavaScript animations.
 - Avoid unnecessary re-renders. Memoize only when measured.
 
-Standards: `docs/standards/coding-standards.md`
+Standards: `@docs/standards/coding-standards.md`
 
 ---
 
@@ -69,7 +79,7 @@ Standards: `docs/standards/coding-standards.md`
 - 2-space indent.
 - Single quotes in JS/TS.
 - Trailing commas in multiline expressions.
-- Max ~80 chars per line (soft limit, not enforced by formatter alone).
+- Max ~80 chars per line (soft limit).
 - Prettier handles formatting — do not fight it.
 
 ---
@@ -95,10 +105,10 @@ Standards: `docs/standards/coding-standards.md`
 
 ## Visual & Animation Philosophy
 
-The interface should disappear into the experience. Animations are slow, intentional, and narrative-supporting — never distracting.
+The interface should disappear into the photos. Animations are slow, intentional, and narrative-supporting — never distracting.
 
-- Prefer: fade, scale, slow transitions, parallax.
-- Avoid: rapid movement, bounce effects, gratuitous effects.
+- Prefer: fade, scale, slow cross-dissolve.
+- Avoid: rapid movement, bounce effects, gratuitous transitions.
 - Whitespace is intentional. Do not fill it.
 
 ---
@@ -110,8 +120,8 @@ The interface should disappear into the experience. Animations are slow, intenti
 - Silently change architecture — always propose first.
 - Write complex logic inside JSX — extract to a hook or util.
 - Skip TypeScript types to save time.
-- Add backend infrastructure (no DB, no auth, no server routes beyond API routes if needed).
-- Make scenes tightly coupled — every scene must be composable from shared primitives.
+- Create per-photo or per-memory components — `PhotoCard` is the single primitive.
+- Add backend infrastructure (no DB, no auth, no API routes).
 - Write comments that restate the code — explain *why* only.
 
 ---
@@ -121,7 +131,6 @@ The interface should disappear into the experience. Animations are slow, intenti
 - Requirements are ambiguous or conflict with project goals.
 - A new library is needed.
 - An architectural decision would affect multiple files.
-- The requested change feels out of scope for a personal gift project.
 - Two valid approaches exist with different trade-offs.
 
 ---
@@ -132,34 +141,22 @@ The interface should disappear into the experience. Animations are slow, intenti
 |---|---|
 | New architectural decision | `docs/decisions/` (new ADR) |
 | New feature shipped | `docs/features/` |
-| New reusable system added | `docs/architecture/overview.md` |
-| API contract defined | `docs/api/` |
+| New reusable component added | `docs/architecture/overview.md` |
+| Data contract changes | `docs/api/README.md` |
 | Coding convention changed | `docs/standards/coding-standards.md` |
-
-Do not update docs speculatively. Update them when the code ships.
 
 ---
 
 ## Key Reference Files
 
-| Purpose | File |
-|---|---|
-| Architecture overview | `docs/architecture/overview.md` |
-| Coding standards | `docs/standards/coding-standards.md` |
-| Feature template | `docs/features/feature-template.md` |
-| ADR template | `docs/decisions/adr-template.md` |
-| Onboarding | `docs/onboarding/project-overview.md` |
-| Prompt templates | `docs/prompts/` |
+> Load with `@filename` only when the task requires it.
 
----
-
-## Scene Inventory
-
-1. Ice Skating
-2. Nando's
-3. First Viewpoint (The Mount)
-4. My House (Monster Energy stop)
-5. Sunset Viewpoint
-6. Stargazing at The Mount
-7. Driving Her Home
-8. Ending Screen
+| Purpose | File | Load when |
+|---|---|---|
+| Architecture overview | `@docs/architecture/overview.md` | Adding/changing any system |
+| Coding standards | `@docs/standards/coding-standards.md` | Reviewing or writing code |
+| Feature template | `@docs/features/feature-template.md` | Starting a new feature |
+| ADR template | `@docs/decisions/adr-template.md` | Making a significant decision |
+| Onboarding | `@docs/onboarding/project-overview.md` | Cold session start |
+| Review checklist | `@docs/standards/review-checklist.md` | Running /review |
+| Data contract | `@docs/api/README.md` | Working on memories data |
