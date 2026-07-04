@@ -90,7 +90,7 @@ export function WelcomeScreen({ onEnter }: WelcomeScreenProps) {
           Welcome to Lucas&apos;s Brain
         </h1>
         <p className="prompt-pulse mt-5 inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[clamp(18px,2.2vw,24px)] font-medium text-[#5A3B48] shadow-[0_12px_28px_rgba(180,80,120,0.18)]">
-          It&apos;s been running to you all year — click the brain 💕
+          Click the brain to start the experience my love!
         </p>
       </header>
 
@@ -98,10 +98,6 @@ export function WelcomeScreen({ onEnter }: WelcomeScreenProps) {
       <div
         aria-hidden
         className="absolute inset-x-0 top-[62%] h-0.5"
-        style={{
-          background:
-            'repeating-linear-gradient(90deg, rgba(194,76,116,0.3) 0 26px, transparent 26px 52px)',
-        }}
       />
 
       <RunningBrain isCaught={isCaught} onCatch={handleCatch} />
