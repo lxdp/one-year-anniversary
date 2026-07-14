@@ -1,11 +1,16 @@
 'use client';
 
-import type { CSSProperties } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 
 interface RunningBrainProps {
   /** Freezes the run and plays the caught reaction. */
   isCaught: boolean;
-  onCatch: () => void;
+  /**
+   * ZOOM TRANSITION (1/6): the callback takes the full click event —
+   * not just () => void — because the parent needs the click's
+   * coordinates to know which point on screen to zoom into.
+   */
+  onCatch: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 interface BurstPiece {

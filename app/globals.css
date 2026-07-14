@@ -160,7 +160,30 @@
   animation: prompt-pulse 1.6s ease-in-out infinite;
 }
 
+/* ZOOM TRANSITION — the animation itself. This class is the END
+   state; adding it to the section (welcome-screen.tsx) makes the
+   browser interpolate from the normal state (scale 1, opaque) to
+   this one, per the transition rule below. Where it zooms comes from
+   the inline transform-origin set at click time.
+   - scale(10): how deep the dive goes.
+   - cubic-bezier(...): ease-in curve — starts slow, accelerates,
+     so it feels like falling in rather than a mechanical zoom.
+   - opacity ease-in: stays visible early, dissolves late, revealing
+     the network underneath right as the scaling gets extreme.
+   - 1.25s MUST match WELCOME_EXIT_MS in welcome-screen.tsx. */
+.zoom-into-brain {
+  transform: scale(10);
+  opacity: 0;
+  transition:
+    transform 1.25s cubic-bezier(0.55, 0, 0.85, 0.3),
+    opacity 1.25s ease-in;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .zoom-into-brain {
+    transform: none;
+    transition: opacity 0.6s ease;
+  }
   .fade-in-slow,
   .brain-bob,
   .leg-swing-a,
