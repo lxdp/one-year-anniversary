@@ -1,6 +1,8 @@
 'use client';
 
-import type { MemoryNode } from '@/types';
+import { useEffect, useRef, useState } from 'react';
+
+import type { MemoryNode, Memory } from '@/types';
 
 export interface BrainExploration {
   /** Nodes currently lit and clickable (includes visited). */
@@ -29,6 +31,21 @@ export function useBrainExploration(
   nodes: MemoryNode[],
   entryNodeId: string,
 ): BrainExploration {
+  const [visitedNodeIds, setVisitedNodeIds] = useState<string[]>([]);
+  const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
+ 
+  function openNode(nodeId: string) {
+    setActiveNodeId(nodeId);
+    setVisitedNodeIds((prev) => (prev.includes(nodeId) ? prev : [...prev, nodeId]));
+  }
+
+  function closeNode() {
+    setActiveNodeId(null);
+  }
+
+  (visitedNodeIds.length == nodes.length ? setIsComplete(true) : setIsComplete(false));
+
   return {
     revealedNodeIds: [entryNodeId],
     visitedNodeIds: [],
